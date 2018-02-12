@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: 2023 The AtigaOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="640dp"
+    android:height="640dp"
+    android:viewportWidth="640"
+    android:viewportHeight="640">
+
+    <path
+        android:fillColor="#86a9dd"
+        android:strokeColor="#000000"
+        android:pathData="M 320 52.5 C 467.73617058 52.5 587.5 172.26382942 587.5 320 C 587.5 467.73617058 467.73617058 587.5 320 587.5 C 172.26382942 587.5 52.5 467.73617058 52.5 320 C 52.5 172.26382942 172.26382942 52.5 320 52.5 Z" />
+</vector>
