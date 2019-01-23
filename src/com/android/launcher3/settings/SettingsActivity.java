@@ -43,6 +43,8 @@ import androidx.preference.PreferenceGroup.PreferencePositionCallback;
 import androidx.preference.PreferenceScreen;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.launcher3.afterlife.AfterlifeUtils;
+import com.android.launcher3.afterlife.trust.TrustAppsActivity;
 import com.android.launcher3.DeviceProfile;
 import com.android.launcher3.InvariantDeviceProfile;
 import com.android.launcher3.LauncherFiles;
@@ -50,7 +52,6 @@ import com.android.launcher3.LauncherPrefs;
 import com.android.launcher3.R;
 import com.android.launcher3.Utilities;
 import com.android.launcher3.config.FeatureFlags;
-import com.android.launcher3.afterlife.AfterlifeUtils;
 import com.android.launcher3.model.WidgetsModel;
 import com.android.launcher3.states.RotationHelper;
 import com.android.launcher3.uioverrides.flags.DeveloperOptionsFragment;
@@ -89,6 +90,7 @@ public class SettingsActivity extends FragmentActivity
 
     private static final String KEY_MINUS_ONE = "pref_enable_minus_one";
     private static final String SEARCH_PACKAGE = "com.google.android.googlequicksearchbox";
+    public static final String KEY_TRUST_APPS = "pref_trust_apps";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -297,6 +299,17 @@ public class SettingsActivity extends FragmentActivity
 
                 case KEY_MINUS_ONE:
                     return AfterlifeUtils.isPackageEnabled(getActivity(), SEARCH_PACKAGE);
+
+                case KEY_TRUST_APPS:
+                    preference.setOnPreferenceClickListener(p -> {
+                        AfterlifeUtils.showLockScreen(getActivity(),
+                                getString(R.string.trust_apps_manager_name), () -> {
+                            Intent intent = new Intent(getActivity(), TrustAppsActivity.class);
+                            startActivity(intent);
+                        });
+                        return true;
+                    });
+                    return true;
             }
 
             return true;

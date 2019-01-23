@@ -138,6 +138,7 @@ import androidx.annotation.VisibleForTesting;
 import com.android.launcher3.DropTarget.DragObject;
 import com.android.launcher3.accessibility.BaseAccessibilityDelegate.LauncherAction;
 import com.android.launcher3.accessibility.LauncherAccessibilityDelegate;
+import com.android.launcher3.afterlife.AfterlifeUtils;
 import com.android.launcher3.allapps.ActivityAllAppsContainerView;
 import com.android.launcher3.allapps.AllAppsRecyclerView;
 import com.android.launcher3.allapps.AllAppsStore;
@@ -2196,6 +2197,12 @@ public class Launcher extends StatefulActivity<LauncherState>
             result.add(() -> btv.setStayPressed(false));
         }
         return result;
+    }
+
+    public void startActivitySafelyAuth(View v, Intent intent, ItemInfo item) {
+        AfterlifeUtils.showLockScreen(this, getString(R.string.trust_apps_manager_name), () -> {
+            startActivitySafely(v, intent, item);
+        });
     }
 
     boolean isHotseatLayout(View layout) {
