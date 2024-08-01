@@ -97,10 +97,9 @@
         android:persistent="true" />
 
     <SwitchPreferenceCompat
-            android:key="pref_allow_wallpaper_scrolling"
-            android:title="@string/allow_wallpaper_scrolling"
-            android:summary="@string/allow_wallpaper_scrolling_summary"
-            android:defaultValue="true"
-            launcher:iconSpaceReserved="false" />
+        android:key="pref_allow_wallpaper_scrolling"
+        android:title="@string/allow_wallpaper_scrolling"
+        android:summary="@string/allow_wallpaper_scrolling_summary"
+        android:defaultValue="false" />
 
 </androidx.preference.PreferenceScreen>
