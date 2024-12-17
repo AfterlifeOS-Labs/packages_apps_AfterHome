@@ -22,7 +22,6 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.provider.Settings;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -73,7 +72,7 @@ public class NavHandleLongPressHandler implements ResourceBasedOverride {
      * @param navHandle to handle this long press
      */
     public @Nullable Runnable getLongPressRunnable(NavHandle navHandle) {
-        if (!isLongPressSearchEnabled()) {
+        if (!Utils.isPackageInstalled(mContext, VELVET_PKG)) {
             return null;
         }
         updateThumbnail();
@@ -95,16 +94,9 @@ public class NavHandleLongPressHandler implements ResourceBasedOverride {
     public void onTouchStarted(NavHandle navHandle) {
         updateThumbnail();
     }
-    
-    private boolean isLongPressSearchEnabled() {
-        boolean searchEnabled = Settings.Secure.getInt(
-            mContext.getContentResolver(), "search_press_hold_nav_handle_enabled", 1) == 1;
-        boolean velvelInstalled = Utils.isPackageInstalled(mContext, VELVET_PKG);
-        return searchEnabled && velvelInstalled;
-    }
 
     private void updateThumbnail() {
-        if (!isLongPressSearchEnabled()) {
+        if (!Utils.isPackageInstalled(mContext, VELVET_PKG)) {
             return;
         }
         String runningPackage = mTopTaskTracker.getCachedTopTask(
