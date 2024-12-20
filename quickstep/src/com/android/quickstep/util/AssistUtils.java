@@ -86,7 +86,23 @@ public class AssistUtils {
         if (invocationType != INVOCATION_TYPE_HOME_BUTTON_LONG_PRESS) {
             return false;
         }
-        return invokeContextualSearch(ContextualSearchManager.ENTRYPOINT_LONG_PRESS_HOME);
+        Intent circleSearchIntent = new Intent();
+        circleSearchIntent.setClassName("com.google.android.googlequicksearchbox",
+                                        "com.google.android.apps.search.assistant.omnient.OmnientActivity");
+        if (isCircleToSearchAvailable()) {
+            mContext.startActivity(circleSearchIntent);
+            return true;
+        } else {
+            Log.e(TAG, "Circle to Search activity not found. Falling back to Contextual Search.");
+            return invokeContextualSearch(ContextualSearchManager.ENTRYPOINT_LONG_PRESS_HOME);
+        }
+    }
+
+    public boolean isCircleToSearchAvailable() {
+        Intent intent = new Intent();
+        intent.setClassName("com.google.android.googlequicksearchbox",
+                            "com.google.android.apps.search.assistant.omnient.OmnientActivity");
+        return intent.resolveActivity(mContext.getPackageManager()) != null;
     }
 
     public boolean invokeContextualSearch(int invocationType) {
